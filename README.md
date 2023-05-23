@@ -50,7 +50,7 @@ Click-through rate
 ### Data Overview
 Dataset memiliki 1000 baris dan 9 fitur dengan 1 target. Berikut informasi fitur pada dataset:
 
-Tabel 1 - Deskripsi Fitur
+Tabel 1 — Deskripsi Fitur
 Fitur | Deskripsi
 ------|----------
 Daily Time Spent on Site | Lamanya tinggal disuatu situs (harian) dalam satuan menit
@@ -72,7 +72,7 @@ Asesmen data dilakukan untuk memastikan bahwa data yang digunakan untuk analisis
 - Memeriksa tipe dan konsistensi nilai
 - Memeriksa outlier atau data yang tidak biasa (anomali)
 
-Tabel 2 - Hasil Data Quality Assessment
+Tabel 2 — Hasil Data Quality Assessment
  **Data Assessment** | **Finding**  | **Handling** 
 --------------------|--------------|--------------
 Missing values | Terdapat missing value pada fitur `Daily Time Spent on Site`, `Area Income`, `Daily Internet Usage`, dan `Male` | Berdasarkan distribusi data missing value pata tipe data numerik diatasi dengan **imputasi** menggunakan nilai **median**. Sedangkan untuk fitur kategorikal, `Age` menggunakan **modus**.
@@ -108,7 +108,7 @@ Sementara dalam analisis usia, ditemukan bahwa **pengguna yang lebih tua memilik
 
 <p align="center">
     <kbd> <img> <img width="600" alt="korelasi" src="https://github.com/faizns/Predict-Clicked-Ads-Customer-Classification/assets/115857221/6036e6b9-fe91-465b-bdcd-d6d1de8eb79e"></kbd> <br>
-    Gambar 2 — Plot korelasi Daily Time Spent on Site dengan Internet Usage terhadap Clicked on Ads
+    Gambar 2 — Plot Korelasi Daily Time Spent on Site dengan Internet Usage terhadap Clicked on Ads
 </p>
 <br>
 
@@ -174,7 +174,47 @@ Fitur yang digunakan untuk model.
 
 ---
 
-## 📂 **STAGE 3: Modeling**
+## 📂 **STAGE 3: Data Modeling and Evaluation**
+#### **Model Experiment**
+Untuk melakukan prediksi pada klik iklan, dilakukan dua eksperimen yang berbeda. Pada eksperimen pertama, data train default digunakan untuk melatih model. Eksperimen ini memanfaatkan data train dalam bentuk default atau tanpa adanya penyesuaian tambahan. Sementara itu pada eksperimen kedua, data distandardisasi menggunakan SandardScaler. Hal ini dikarenakan distribusi data cenderung mendekati normal, sehingga perlu dilakukan standardisasi agar data memiliki skala yang serupa.
+
+Dalam kedua eksperimen ini, matriks akurasi digunakan sebagai metrik evaluasi. Matriks akurasi memberikan gambaran tentang seberapa baik model dapat mengklasifikasikan data dengan benar. Penggunaan matriks akurasi ini dipilih karena jumlah kategori pada target (Clicked on Ads) yang digunakan dalam analisis seimbang, yaitu memiliki jumlah pengguna yang mengklik iklan dan tidak mengklik yang relatif setara.
+
+<p align="center">
+    Tabel 3 — Hasil Eksperimen Pertama (Tanpa Standardization) <br>
+    <kbd><img width="500" alt="ex1" src="https://github.com/faizns/Predict-Clicked-Ads-Customer-Classification/assets/115857221/bddc03e7-cb76-49ad-8acf-2f401f20ab32"></kbd> <br>
+</p>
+
+<p align="center">
+    Tabel 4 — Hasil Eksperimen Kedua (Standardization) <br>
+    <kbd> <img width="500" alt="ex2" src="https://github.com/faizns/Predict-Clicked-Ads-Customer-Classification/assets/115857221/e31f61bc-3cda-48cd-a556-25bb7cba4a3d"></kbd> <br>
+</p>
+<br>
+
+Pada hasil eksperimen, terlihat bahwa algoritma **Random Forest memiliki akurasi tertinggi baik pada eksperimen pertama maupun kedua, dengan nilai akurasi mencapai 96%**. Selain itu, algoritma-algoritma lain seperti Gradient Boosting, XGBoost, dan LGBM juga menunjukkan akurasi yang tinggi pada eksperimen pertama, dengan nilai akurasi sebesar 95%. Pada eksperimen kedua, ketiga algoritma tersebut juga memberikan hasil akurasi yang hampir sama. Menariknya, terlihat bahwa penggunaan metode standardization tidak memberikan perubahan yang signifikan pada nilai akurasi untuk algoritma-algoritma tersebut. Hal ini mengindikasikan bahwa model tidak terlalu sensitif terhadap perbedaan skala fitur dalam data. Dengan kata lain, perbedaan skala fitur tidak memiliki pengaruh yang signifikan pada kinerja model. 
+
+Selain itu algoritma seperti Random Forest, XGBoost, Gradient Boosting, dan LGBM termasuk dalam kategori algoritma yang robust dan memiliki kemampuan yang kuat dalam menangani berbagai jenis data. Mereka dapat menyesuaikan dengan baik terhadap data yang tidak distandardisasi, sehingga tidak memerlukan proses preprocessing yang rumit. Oleh karena itu, nilai akurasi mereka tidak banyak berubah ketika fitur-fitur distandardisasi atau tidak distandardisasi. <br>
+<br>
+
+#### **Evaluation: Confusion Matrix**
+
+<p align="center">
+    <kbd><img width="500" alt="CM" src="https://github.com/faizns/Predict-Clicked-Ads-Customer-Classification/assets/115857221/c64e7a95-78c7-401d-9404-345ed06afbac"></kbd> <br>
+    Gambar 7 — Confussion Matrix Random Forest
+</p>
+
+Berdasarkan model random forest, performa model secara mendetail dievaluasi menggunakan confusion matrix. Berdasarkan hasil confusion matrix, model Random Forest menunjukkan **performa yang sangat baik** dalam memprediksi pengguna yang mengklik iklan atau tidak. Nilai kesalahan prediksi, yang terdiri dari False Positive (prediksi salah bahwa pengguna mengklik iklan) dan False Negative (prediksi salah bahwa pengguna tidak mengklik iklan), memiliki jumlah yang kecil. **Kesalahan prediksi yang kecil ini dapat dianggap sebagai prediksi yang akurat**. Berdasarkan hal tersebut, perusahaan dapat menggunakan model ini untuk mengidentifikasi dengan akurat pengguna yang memiliki potensi untuk mengklik iklan, sehingga dapat mengoptimalkan strategi pemasarannya. <br>
+<br>
+
+#### **Evaluation: Feature Importance**
+<p align="center">
+    <kbd> <img width="700" alt="SHAP" src="https://github.com/faizns/Predict-Clicked-Ads-Customer-Classification/assets/115857221/bef0d0a4-27eb-4dc9-aabd-d2cc8e05d8d7"> </kbd> <br>
+    Gambar 8 — Feature Importance Random Forest
+</p>
+
+Analisis Feature Importance digunakan untuk mengidentifikasi fitur yang paling penting dalam membangun model. Dalam analisis menggunakan plot SHAP, dapat terlihat fitur yang memiliki pengaruh tertinggi terhadap prediksi klik pada iklan. Beberapa fitur yang menunjukkan pengaruh yang signifikan adalah Daily Internet Usage, Daily Time Spent on Site, Area Income, dan Age. Fitur seperti **Daily Internet Usage, Daily Time Spent on Site, dan Area Income memiliki korelasi negatif** terhadap klik iklan yang ditandai dengan warna merah pada sisi kiri plot. Hal ini menunjukkan bahwa pengguna yang memiliki kebiasaan penggunaan internet yang kurang aktif dan pengguna dengan pendapatan menengah ke bawah memiliki potensi yang lebih tinggi untuk mengklik iklan. Di sisi lain, fitur **Age memiliki korelasi yang positif** dengan klik iklan. Artinya, semakin tua usia pengguna, semakin tinggi potensi mereka untuk mengklik iklan yang ditampilkan.
+
+Informasi mengenai Feature Importance ini dapat digunakan untuk mengoptimalkan strategi pemasaran dan menyusun iklan yang lebih efektif dengan mempertimbangkan karakteristik user berdasarkan fitur-fitur yang memiliki pengaruh signifikan dalam model.
 
 <br>
 <br>
