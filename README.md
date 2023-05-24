@@ -1,27 +1,30 @@
 # 🖱 Predict Clicked Ads Customer Classification
 <br>
 
-**Tool** : Jupyter Notebook | [Link Notebook]()<br>
+**Tool** : Jupyter Notebook | [Link Notebook](https://github.com/faizns/Predict-Clicked-Ads-Customer-Classification/blob/main/Customer%20Clicked%20Ads%20Classification.ipynb)<br>
 **Programming Language** : Python <br>
 **Libraries** : Pandas, NumPy, Scikit Learn, shap <br>
 **Visualization** : Matplotlib, Seaborn <br>
-**Dataset** : Disediakan oleh Rakamin Academy - [Dataset]() <br>
+**Source Dataset** : Rakamin Academy <br>
 <br>
 <br>
 
 **Table of Contents**
-- [STAGE 0: Introduction]()
-	- [Background]()
-	- [Goals]()
-    - [Objective]()
-    - [Business Metric]()
-- [STAGE 1: Exploratory Data Analysis]()
-	- [Data Overview]()
-	- [Data Quality Assessment]()
-    - [Data Exploration]()
-- [STAGE 2: Data Pre-processing]()
-- [STAGE 3: Modeling]()
-- [STAGE 4: Save Model]()
+- [STAGE 0: Introduction](https://github.com/faizns/Predict-Clicked-Ads-Customer-Classification#-stage-0-introduction)
+	- [Background](https://github.com/faizns/Predict-Clicked-Ads-Customer-Classification#background)
+	- [Goal](https://github.com/faizns/Predict-Clicked-Ads-Customer-Classification#goal)
+    - [Objective](https://github.com/faizns/Predict-Clicked-Ads-Customer-Classification#objective)
+    - [Business Metric](https://github.com/faizns/Predict-Clicked-Ads-Customer-Classification#business-metric)
+- [STAGE 1: Exploratory Data Analysis](https://github.com/faizns/Predict-Clicked-Ads-Customer-Classification#-stage-1-exploratory-data-analysis)
+	- [Data Overview](https://github.com/faizns/Predict-Clicked-Ads-Customer-Classification#data-overview)
+	- [Data Quality Assessment](https://github.com/faizns/Predict-Clicked-Ads-Customer-Classification#data-quality-assesment)
+    - [Data Exploration](https://github.com/faizns/Predict-Clicked-Ads-Customer-Classification#data-exploration)
+- [STAGE 2: Data Pre-processing](https://github.com/faizns/Predict-Clicked-Ads-Customer-Classification#-stage-2-data-pre-processing)
+- [STAGE 3: Data Modeling and Evaluation](https://github.com/faizns/Predict-Clicked-Ads-Customer-Classification#-stage-3-data-modeling-and-evaluation)
+	- [Model Experimet](https://github.com/faizns/Predict-Clicked-Ads-Customer-Classification#model-experiment)
+	- [Evaluation: Confussion Matrix](https://github.com/faizns/Predict-Clicked-Ads-Customer-Classification#evaluation-confusion-matrix)
+	- [Evaluation: Feature Importance](https://github.com/faizns/Predict-Clicked-Ads-Customer-Classification#evaluation-feature-importance)
+- [STAGE 4: Business Recommendation](https://github.com/faizns/Predict-Clicked-Ads-Customer-Classification#-stage-4-business-recommendation)
 <br>
 <br>
 
@@ -175,7 +178,7 @@ Fitur yang digunakan untuk model.
 ---
 
 ## 📂 **STAGE 3: Data Modeling and Evaluation**
-#### **Model Experiment**
+### **Model Experiment**
 Untuk melakukan prediksi pada klik iklan, dilakukan dua eksperimen yang berbeda. Pada eksperimen pertama, data train default digunakan untuk melatih model. Eksperimen ini memanfaatkan data train dalam bentuk default atau tanpa adanya penyesuaian tambahan. Sementara itu pada eksperimen kedua, data distandardisasi menggunakan SandardScaler. Hal ini dikarenakan distribusi data cenderung mendekati normal, sehingga perlu dilakukan standardisasi agar data memiliki skala yang serupa.
 
 Dalam kedua eksperimen ini, matriks akurasi digunakan sebagai metrik evaluasi. Matriks akurasi memberikan gambaran tentang seberapa baik model dapat mengklasifikasikan data dengan benar. Penggunaan matriks akurasi ini dipilih karena jumlah kategori pada target (Clicked on Ads) yang digunakan dalam analisis seimbang, yaitu memiliki jumlah pengguna yang mengklik iklan dan tidak mengklik yang relatif setara.
@@ -196,7 +199,7 @@ Pada hasil eksperimen, terlihat bahwa algoritma **Random Forest memiliki akurasi
 Selain itu algoritma seperti Random Forest, XGBoost, Gradient Boosting, dan LGBM termasuk dalam kategori algoritma yang robust dan memiliki kemampuan yang kuat dalam menangani berbagai jenis data. Mereka dapat menyesuaikan dengan baik terhadap data yang tidak distandardisasi, sehingga tidak memerlukan proses preprocessing yang rumit. Oleh karena itu, nilai akurasi mereka tidak banyak berubah ketika fitur-fitur distandardisasi atau tidak distandardisasi. <br>
 <br>
 
-#### **Evaluation: Confusion Matrix**
+### **Evaluation: Confusion Matrix**
 
 <p align="center">
     <kbd><img width="500" alt="CM" src="https://github.com/faizns/Predict-Clicked-Ads-Customer-Classification/assets/115857221/c64e7a95-78c7-401d-9404-345ed06afbac"></kbd> <br>
@@ -222,3 +225,25 @@ Informasi mengenai Feature Importance ini dapat digunakan untuk mengoptimalkan s
 ---
 
 ## 📂 **STAGE 4: Business Recommendation**
+
+Rekomendasi berdasarkan Feature Importance dan insight yang telah ditemukan.
+- Perusahaan dapat **mentargetkan iklan pada pengguna internet non-aktif**, yaitu pengguna yang jarang menghabiskan waktu di situs (kurang dari 1 jam) dan pengguna yang jarang menggunakan internet (dengan Daily Internet Usage di bawah 2,5 jam sehari). Strategi yang dapat dilakukan diantaranya adalah :
+    - Karena pengguna non-aktif memiliki keterbatasan waktu, penting untuk menciptakan iklan yang singkat dan menarik.Menggunakan pesan yang padat dan jelas dengan pemilihan kata yang tepat dapat menarik perhatian mereka dalam waktu singkat. 
+    - Memanfaatkan strategi retargeting untuk terus berkomunikasi dengan pengguna non-aktif. Setelah mereka mengklik iklan awal dan menunjukkan minat, tampilkan iklan yang relevan secara berulang kali di berbagai platform yang mereka kunjungi, seperti situs web lain, aplikasi, atau media sosial. Ini dapat membantu meningkatkan awareness pengguna.
+    - Konten iklan Anda relevan dengan minat dan kebutuhan pengguna non-aktif.<br>
+
+- Perusahaan dapat mengarahkan strategi pemasaran dan iklan pada **segmen pasar kelompok usia lebih dari 40 tahun**. Strategi yang dapat dilakukan diantaranya adalah :
+    - Memfokuskan kampanye iklan yang memiliki dampak atau relevansi dengan kehidupan dan kebutuhan kelompok usia di atas 40 tahun.
+    - Desain iklan yang mudah dibaca dan sederhana oleh kelompok usia di atas 40 tahun.
+    - Menggunakan platform iklan yang sesuai, seperti Facebook. Kelompok usia di atas 40 tahun cenderung lebih sedikit terlibat dalam media sosial dibandingkan dengan kelompok usia yang lebih muda. <br>
+
+- Perusahaan dapat mengarahkan strategi pemasaran dan iklan pada **segmen pasar kelompok dengan pendapatan menengah kebawah (< 400juta/tahun)**. Strategi yang dapat dilakukan diantaranya adalah :
+    - Memberikan iklan dengan penawaran harga yang terjangkau dan sesuai dengan anggaran pengguna dalam kisaran, seperi diskon khusus, bundel, atau harga promo untuk mendorong mereka untuk mengklik iklan. <br>
+
+- Perusahaan dapat **memanfaatkan hari Rabu dan tingkat lalu lintas tinggi pada Selasa dan Sabtu**. Hari Rabu menunjukkan konversi klik iklan yang baik, sementara Selasa dan Sabtu memiliki tingkat lalu lintas yang tinggi dengan sekitar 50% pengguna cenderung mengklik iklan. Hal tersebut dapat digunakan untuk memaksimalkan penayangan iklan.
+
+- Perusahaan dapat menggunakan **jam-jam yang berpotensi klik iklan** dengan memastikan penayangan iklan yang tepat pada saat-saat tersebut. Jam-jam pukul **00.00, 09.00, 11.00, dan 18.00** menunjukkan potensi pengguna untuk mengklik iklan dan memiliki konversi pembelian yang tinggi.
+
+-  Apabila perusahaan ingin menargetkan kelompok pengguna aktif, strategi iklan dengan pendekatan softselling dapat menjadi pilihan yang efektif. Dalam strategi ini, perusahaan dapat fokus pada membangun hubungan yang baik dengan calon konsumen, memberikan informasi yang bermanfaat tentang produk atau layanan, dan menyoroti nilai-nilai yang dimiliki. Selain itu, pemilihan platform media sosial sebagai platform penayangan iklan juga dapat efektif, mengingat kelompok pengguna aktif cenderung menggunakan media sosial secara intensif. 
+
+
